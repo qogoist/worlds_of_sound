@@ -1,11 +1,14 @@
 #include <MIDI.h>
 #include <Bounce2.h>
 #include <Ultrasonic.h>
+#include <FastLED.h>
 
 #define buttonPin1 6
 #define buttonPin2 2
 #define poti A0
 #define ledPin 8
+#define NUM_LEDS 12
+#define ledStripPin 9
 
 Bounce pushButton1 = Bounce(buttonPin1, 10);
 Bounce pushButton2 = Bounce(buttonPin2, 10);
@@ -16,13 +19,14 @@ int deltaPoti = 0;
 int ultrasonicValue = 0;
 int deltaUltrasonic = 0;
 
-
 Ultrasonic ultrasonic(7);
-
+CRGB leds[NUM_LEDS];
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 void setup()
 {
+    FastLED.addLeds<NEOPIXEL, ledStripPin>(leds, NUM_LEDS);
+
     pinMode(buttonPin1, INPUT_PULLUP);
     pinMode(ledPin, OUTPUT);
 
@@ -39,13 +43,20 @@ void loop()
     {
         if (ultrasonicValue < 45)
         {
-            int note = ultrasonicValue * 3;
+            int note = map(ultrasonicValue, 0, 44, 127, 0);
             MIDI.sendNoteOn(note, 127, 3);
             
+            int numLedsToLight = map(ultrasonicValue, 0, 44, NUM_LEDS, 0);
+
+            FastLED.clear();
+            for (int led = 0; led < numLedsToLight; led++)
+            {
+                leds[led].setRGB( led * 20, 255 - (led * 20), 0);
+            }
+            FastLED.show();
         }
         deltaUltrasonic = ultrasonicValue;
     }
-
 
     if (potiValue - deltaPoti < -3 || potiValue - deltaPoti > 3)
     {
