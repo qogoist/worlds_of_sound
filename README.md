@@ -9,3 +9,4 @@
 * [Arduino MIDI Library](https://github.com/FortySevenEffects/arduino_midi_library/tree/dev)
 * [Bounce2](https://github.com/thomasfredericks/Bounce2) To debounce buttons
 * [FastLED](https://github.com/FastLED/FastLED) for LED stripes and stuff.
+* [Ping Library](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home) for ultrasonic sensors.
