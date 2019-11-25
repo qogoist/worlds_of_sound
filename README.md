@@ -10,3 +10,4 @@
 * [Bounce2](https://github.com/thomasfredericks/Bounce2) To debounce buttons
 * [FastLED](https://github.com/FastLED/FastLED) for LED stripes and stuff.
 * [Ping Library](https://bitbucket.org/teckel12/arduino-new-ping/wiki/Home) for ultrasonic sensors.
+* [MPU6050 Library](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino/MPU6050) for accelerometer, routines for calibration etc. in the examples. [All Arduino I2C Dev Libs](https://github.com/jrowberg/i2cdevlib/tree/master/Arduino)
