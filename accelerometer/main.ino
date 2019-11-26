@@ -10,7 +10,7 @@
 //initialize the on the standard I2C adress of the MPU6050
 MPU6050 accelgyro;
 
-//initialize vars for accelerometer values
+//define vars for accelerometer values
 int16_t acc_x, acc_y, acc_z;
 
 void setup() {
