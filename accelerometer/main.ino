@@ -18,6 +18,8 @@ const int thr_y_minus = -15000;
 const int thr_z_plus = 15000;
 const int thr_z_minus = -15000;
 
+int side = 0;
+
 //initialize the on the standard I2C adress of the MPU6050
 MPU6050 accelgyro;
 
@@ -58,31 +60,41 @@ void loop() {
 
     if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z > thr_z_plus && acc_z > thr_z_minus) {//trigger if 1 is up
         // Serial.println("1");
-        MIDI.sendNoteOn(60, 10, 1);
+        isSide(1);
     }
 
     if (acc_x > thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus) {//trigger if 2 is up
         // Serial.println("2");
-        MIDI.sendNoteOn(60, 30, 1);
+        isSide(2);
     }
 
     if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z < thr_z_minus) {//trigger if 3 is up
         // Serial.println("3");
-        MIDI.sendNoteOn(60, 50, 1);
+        isSide(3);
     }
 
     if (acc_x < thr_x_plus && acc_x < thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus) {//trigger if 4 is up
         // Serial.println("4");
-        MIDI.sendNoteOn(60, 70, 1);
+        isSide(4);
     }
 
     if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y > thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus) {//trigger if 5 is up
         // Serial.println("5");
-        MIDI.sendNoteOn(60, 90, 1);
+        isSide(5);
     }
 
     if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y < thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus) {//trigger if 6 is up
         // Serial.println("6");
-        MIDI.sendNoteOn(60, 110, 1);
+        isSide(6);
+    }
+}
+
+bool isSide(int currentSide)
+{
+    if (side != currentSide)
+    {
+        MIDI.sendNoteOff(60, 0 , 1);
+        side = currentSide;
+        MIDI.sendNoteOn(60, side * 20 - 10, 1); //Should send 10, 30, 50, 70, 90, 110, depending on side 1-6
     }
 }
