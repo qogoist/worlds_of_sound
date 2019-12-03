@@ -25,14 +25,15 @@ void loop()
 {
     for (int i = 0; i < SONAR_NUM; i++)
     {
+        delay(30);
         distance = sonar[i].ping_cm();
 
         if (distance != 0)
         {
-            /*Serial.print("Sensor ");
-            Serial.print(i);
-            Serial.print(": ");
-            Serial.println(distance);*/
+            // Serial.print("Sensor ");
+            // Serial.print(i);
+            // Serial.print(": ");
+            // Serial.println(distance);
 
             MIDI.sendNoteOn(i+1, 127, 10);
         }
