@@ -15,11 +15,6 @@ MIDI_CREATE_DEFAULT_INSTANCE();
 
 int distance = 0;
 
-bool side1 = false;
-bool side2 = false;
-bool side3 = false;
-bool side4 = false;
-
 bool isSending1 = false;
 bool isSending2 = false;
 bool isSending3 = false;
@@ -47,16 +42,9 @@ void loop()
             case 1:
                 if (!isSending1)
                 {
-                    side1 = !side1;
-
-                    if (side1)
-                        MIDI.sendNoteOn(i + 1, 127, 10);
+                    MIDI.sendNoteOn(i + 1, 127, 10);
                     //Serial.println(i + 1);
-                    else
-                        MIDI.sendNoteOn(5 * (i + 1), 127, 10);
-                    //Serial.println(5 * (i + 1));
                 }
-
 
                 isSending1 = true;
                 break;
@@ -64,16 +52,9 @@ void loop()
             case 2:
                 if (!isSending2)
                 {
-                    side2 = !side2;
-
-                    if (side2)
-                        MIDI.sendNoteOn(i + 1, 127, 10);
+                    MIDI.sendNoteOn(i + 1, 127, 10);
                     //Serial.println(i + 1);
-                    else
-                        MIDI.sendNoteOn(5 * (i + 1), 127, 10);
-                    //Serial.println(5 * (i + 1));
                 }
-
 
                 isSending2 = true;
                 break;
@@ -81,16 +62,9 @@ void loop()
             case 3:
                 if (!isSending3)
                 {
-                    side3 = !side3;
-
-                    if (side3)
-                        MIDI.sendNoteOn(i + 1, 127, 10);
+                    MIDI.sendNoteOn(i + 1, 127, 10);
                     //Serial.println(i + 1);
-                    else
-                        MIDI.sendNoteOn(5 * (i + 1), 127, 10);
-                    //Serial.println(5 * (i + 1));
                 }
-
 
                 isSending3 = true;
                 break;
@@ -98,16 +72,9 @@ void loop()
             case 4:
                 if (!isSending4)
                 {
-                    side4 = !side4;
-
-                    if (side4)
-                        MIDI.sendNoteOn(i + 1, 127, 10);
+                    MIDI.sendNoteOn(i + 1, 127, 10);
                     //Serial.println(i + 1);
-                    else
-                        MIDI.sendNoteOn(5 * (i + 1), 127, 10);
-                    //Serial.println(5 * (i + 1));
                 }
-
 
                 isSending4 = true;
                 break;
