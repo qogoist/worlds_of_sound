@@ -3,7 +3,7 @@
 #include "MPU6050.h"
 
 //the Arduino MIDI lib
-#include <MIDI.h>
+//#include <MIDI.h>
 
 //the standard Arduino I2C lib, dosen't need to be downloadet seperadly
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
@@ -27,7 +27,7 @@ MPU6050 accelgyro;
 MIDI_CREATE_DEFAULT_INSTANCE();
 
 //initialize vars for accelerometer values
-int16_t acc_x, acc_y, acc_z;
+int16_t acc_x, acc_y, acc_z, gyr_x, gyr_y, gyr_z;
 
 void setup()
 {
@@ -39,7 +39,7 @@ void setup()
 #endif
 
     //stat MIDI communication
-    MIDI.begin();
+    // MIDI.begin();
 
     //start serial communication
     Serial.begin(115200);
@@ -55,46 +55,55 @@ void loop()
 {
     //get acceleration data
     accelgyro.getAcceleration(&acc_x, &acc_y, &acc_z);
+    accelgyro.getRotation(&gyr_x, &gyr_y, &gyr_z);
 
-    // Serial.print(acc_x); Serial.print(" \t ");
-    // Serial.print(acc_y); Serial.print(" \t ");
-    // Serial.println(acc_z);
+    Serial.print(acc_x);
+    Serial.print(" ");
+    Serial.print(acc_y);
+    Serial.print(" ");
+    Serial.print(acc_z);
+    Serial.print(" ");
+    Serial.print(gyr_x);
+    Serial.print(" ");
+    Serial.print(gyr_y);
+    Serial.print(" ");
+    Serial.println(gyr_z);
 
-    if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z > thr_z_plus && acc_z > thr_z_minus)
-    { //trigger if 1 is up
-        // Serial.println("1");
-        isSide(1);
-    }
+    // if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z > thr_z_plus && acc_z > thr_z_minus)
+    // { //trigger if 1 is up
+    //     // Serial.println("1");
+    //     isSide(1);
+    // }
 
-    if (acc_x > thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
-    { //trigger if 2 is up
-        // Serial.println("2");
-        isSide(2);
-    }
+    // if (acc_x > thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
+    // { //trigger if 2 is up
+    //     // Serial.println("2");
+    //     isSide(2);
+    // }
 
-    if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z < thr_z_minus)
-    { //trigger if 3 is up
-        // Serial.println("3");
-        isSide(3);
-    }
+    // if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z < thr_z_minus)
+    // { //trigger if 3 is up
+    //     // Serial.println("3");
+    //     isSide(3);
+    // }
 
-    if (acc_x < thr_x_plus && acc_x < thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
-    { //trigger if 4 is up
-        // Serial.println("4");
-        isSide(4);
-    }
+    // if (acc_x < thr_x_plus && acc_x < thr_x_minus && acc_y < thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
+    // { //trigger if 4 is up
+    //     // Serial.println("4");
+    //     isSide(4);
+    // }
 
-    if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y > thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
-    { //trigger if 5 is up
-        // Serial.println("5");
-        isSide(5);
-    }
+    // if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y > thr_y_plus && acc_y > thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
+    // { //trigger if 5 is up
+    //     // Serial.println("5");
+    //     isSide(5);
+    // }
 
-    if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y < thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
-    { //trigger if 6 is up
-        // Serial.println("6");
-        isSide(6);
-    }
+    // if (acc_x < thr_x_plus && acc_x > thr_x_minus && acc_y < thr_y_plus && acc_y < thr_y_minus && acc_z < thr_z_plus && acc_z > thr_z_minus)
+    // { //trigger if 6 is up
+    //     // Serial.println("6");
+    //     isSide(6);
+    // }
 }
 
 bool isSide(int currentSide)
