@@ -50,12 +50,12 @@ void loop()
     fy = ay / length;
     fz = az / length;
 
-    s1 = round(mapValue(fy, 1, -1, 0, 127));
-    s6 = round(mapValue(fy, -1, 1, 0, 127));
-    s2 = round(mapValue(fz, 1, -1, 0, 127));
-    s5 = round(mapValue(fz, -1, 1, 0, 127));
-    s4 = round(mapValue(fx, 1, -1, 0, 127));
-    s3 = round(mapValue(fx, -1, 1, 0, 127));
+    s1 = round(mapValue(fy, 1, -1, 0, 100));
+    s6 = round(mapValue(fy, -1, 1, 0, 100));
+    s2 = round(mapValue(fz, 1, -1, 0, 100));
+    s5 = round(mapValue(fz, -1, 1, 0, 100));
+    s4 = round(mapValue(fx, 1, -1, 0, 100));
+    s3 = round(mapValue(fx, -1, 1, 0, 100));
 
     OSCBundle bndl;
     
