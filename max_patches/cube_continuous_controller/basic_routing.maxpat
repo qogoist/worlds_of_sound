@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1954.0, 77.0, 1452.0, 969.0 ],
+		"rect" : [ 96.0, 77.0, 1390.0, 969.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,13 +39,25 @@
 		"subpatcher_template" : "",
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "message",
+					"numinlets" : 2,
+					"numoutlets" : 1,
+					"outlettype" : [ "" ],
+					"patching_rect" : [ 607.894731044769287, 136.184209227561951, 32.0, 22.0 ],
+					"text" : "print"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-44",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 367.0, 608.0, 50.0, 22.0 ],
-					"text" : "53"
+					"text" : "48"
 				}
 
 			}
@@ -57,7 +69,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 44.0, 608.0, 50.0, 22.0 ],
-					"text" : "47"
+					"text" : "52"
 				}
 
 			}
@@ -69,7 +81,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 173.0, 608.0, 50.0, 22.0 ],
-					"text" : "100"
+					"text" : "0"
 				}
 
 			}
@@ -81,7 +93,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 302.0, 608.0, 50.0, 22.0 ],
-					"text" : "47"
+					"text" : "53"
 				}
 
 			}
@@ -93,7 +105,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 236.0, 608.0, 50.0, 22.0 ],
-					"text" : "0"
+					"text" : "100"
 				}
 
 			}
@@ -105,7 +117,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 109.0, 608.0, 50.0, 22.0 ],
-					"text" : "53"
+					"text" : "47"
 				}
 
 			}
@@ -141,7 +153,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 82.0, 360.0, 105.0, 22.0 ],
-					"text" : "/cube1/side6 53"
+					"text" : "/cube1/side6 48"
 				}
 
 			}
@@ -189,7 +201,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "int", "" ],
 					"patching_rect" : [ 441.0, 205.0, 84.0, 22.0 ],
-					"text" : "serial d 38400"
+					"text" : "serial e 38400"
 				}
 
 			}
@@ -280,6 +292,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-2", 0 ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-2", 0 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}

@@ -1,6 +1,5 @@
 #include "I2Cdev.h"
 #include "MPU6050.h"
-#include <MIDI.h>
 
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
 #include "Wire.h"
@@ -14,10 +13,8 @@
 SLIPEncodedUSBSerial SLIPSerial( thisBoardsSerialUSB );
 #else
 #include <SLIPEncodedSerial.h>
- SLIPEncodedSerial SLIPSerial(Serial); // Change to Serial1 or Serial2 etc. for boards with multiple serial ports that don’t have Serial
+ SLIPEncodedSerial SLIPSerial(Serial);
 #endif
-
-int side = 0;
 
 MPU6050 accelgyro;
 
@@ -30,7 +27,6 @@ int s1, s2, s3, s4, s5, s6;
 
 void setup()
 {
-// join I2C bus (I2Cdev library doesn't do this automatically)
 #if I2CDEV_IMPLEMENTATION == I2CDEV_ARDUINO_WIRE
     Wire.begin();
 #elif I2CDEV_IMPLEMENTATION == I2CDEV_BUILTIN_FASTWIRE
@@ -54,12 +50,12 @@ void loop()
     fy = ay / length;
     fz = az / length;
 
-    s1 = round(mapValue(fy, 1, -1, 0, 100));
-    s6 = round(mapValue(fy, -1, 1, 0, 100));
-    s2 = round(mapValue(fz, 1, -1, 0, 100));
-    s5 = round(mapValue(fz, -1, 1, 0, 100));
-    s4 = round(mapValue(fx, 1, -1, 0, 100));
-    s3 = round(mapValue(fx, -1, 1, 0, 100));
+    s1 = round(mapValue(fy, 1, -1, 0, 127));
+    s6 = round(mapValue(fy, -1, 1, 0, 127));
+    s2 = round(mapValue(fz, 1, -1, 0, 127));
+    s5 = round(mapValue(fz, -1, 1, 0, 127));
+    s4 = round(mapValue(fx, 1, -1, 0, 127));
+    s3 = round(mapValue(fx, -1, 1, 0, 127));
 
     OSCBundle bndl;
     
