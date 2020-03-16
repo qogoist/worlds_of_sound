@@ -15,3 +15,4 @@
 ``sudo pip3 install python-osc``
 
 ## Copy and Modify files
+* For now copy `send_tof_osc.py` to a convinient location and start it using the command `python3 <path to file>/send_tof_osc.py`
