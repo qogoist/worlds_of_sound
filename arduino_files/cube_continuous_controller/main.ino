@@ -18,12 +18,11 @@ SLIPEncodedUSBSerial SLIPSerial( thisBoardsSerialUSB );
 
 MPU6050 accelgyro;
 
-MIDI_CREATE_DEFAULT_INSTANCE();
-
 int16_t ax, ay, az;
 double length;
 double fx, fy, fz;
 int s1, s2, s3, s4, s5, s6;
+int currentSide;
 
 void setup()
 {
@@ -42,14 +41,14 @@ void setup()
 
 void loop()
 {
+    //Get acceleration data and normalize the vector.
     accelgyro.getAcceleration(&ax, &ay, &az);
-
     length = sqrt(pow(ax, 2) + pow(ay, 2) + pow(az, 2));
-
     fx = ax / length;
     fy = ay / length;
     fz = az / length;
 
+    //Map the values of the vector to the sides of the cube.
     s1 = round(mapValue(fy, 1, -1, 0, 100));
     s6 = round(mapValue(fy, -1, 1, 0, 100));
     s2 = round(mapValue(fz, 1, -1, 0, 100));
@@ -57,16 +56,43 @@ void loop()
     s4 = round(mapValue(fx, 1, -1, 0, 100));
     s3 = round(mapValue(fx, -1, 1, 0, 100));
 
+    //Determine which side is on top and set to currentSide
+    if (s1 == 100)
+    {
+        currentSide = 1;
+    }
+    else if (s2 == 100)
+    {
+        currentSide = 2;
+    }
+    else if (s3 == 100)
+    {
+        currentSide = 3;
+    }
+    else if (s4 == 100)
+    {
+        currentSide = 4;
+    }
+    else if (s5 == 100)
+    {
+        currentSide = 5;
+    }
+    else if (s6 == 100)
+    {
+        currentSide = 6;
+    }
+
+    //Creating the OSC Bundle
     OSCBundle bndl;
-    
     bndl.add("/cube1/side1").add(s1);
     bndl.add("/cube1/side2").add(s2);
     bndl.add("/cube1/side3").add(s3);
     bndl.add("/cube1/side4").add(s4);
     bndl.add("/cube1/side5").add(s5);
     bndl.add("/cube1/side6").add(s6);
+    bndl.add("/cube1/currentSide").add(currentSide);
 
-
+    //Send the OSC package via SLIPSerial (SLIPSerial lets us define a package to send, instead of just sending a continuous stream of data.)
     SLIPSerial.beginPacket();  
         bndl.send(SLIPSerial);
     SLIPSerial.endPacket(); 
