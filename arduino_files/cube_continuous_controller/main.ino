@@ -23,6 +23,7 @@ double length;
 double fx, fy, fz;
 int s1, s2, s3, s4, s5, s6;
 int currentSide;
+int currentSideTreshold = 95;      // the percentage a side needs to reach to be the currentSide
 
 void setup()
 {
@@ -34,9 +35,9 @@ void setup()
 
     SLIPSerial.begin(38400);
     accelgyro.initialize();
-    accelgyro.setXAccelOffset(472);
-    accelgyro.setYAccelOffset(350);
-    accelgyro.setZAccelOffset(1344);
+    accelgyro.setXAccelOffset(0);
+    accelgyro.setYAccelOffset(0);
+    accelgyro.setZAccelOffset(0);
 }
 
 void loop()
@@ -61,23 +62,23 @@ void loop()
     {
         currentSide = 1;
     }
-    else if (s2 == 100)
+    else if (s2 >= currentSideTreshold)
     {
         currentSide = 2;
     }
-    else if (s3 == 100)
+    else if (s3 >= currentSideTreshold)
     {
         currentSide = 3;
     }
-    else if (s4 == 100)
+    else if (s4 >= currentSideTreshold)
     {
         currentSide = 4;
     }
-    else if (s5 == 100)
+    else if (s5 >= currentSideTreshold)
     {
         currentSide = 5;
     }
-    else if (s6 == 100)
+    else if (s6 >= currentSideTreshold)
     {
         currentSide = 6;
     }
