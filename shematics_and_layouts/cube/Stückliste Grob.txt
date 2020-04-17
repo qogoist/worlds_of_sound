@@ -1,5 +1,9 @@
 Stückliste Cube Grob
 
-Arduino Nano
-Stiftleiste 2x4
-3.3V Spannungsregler TO-220 
+2X Stiftleiste(Weiblich) 1x15 --> Arduino Nano
+1X Stiftleiste(Weiblich) 2x4 --> ESP8266
+1X 3.3V Spannungsregler TO-220
+2X 100n Keramik Kondensatoren
+1X 10K Wiederstand
+1X 1K Wiederstand
+1X 2K Wiederstand
