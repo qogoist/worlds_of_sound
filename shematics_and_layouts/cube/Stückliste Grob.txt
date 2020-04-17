@@ -1,0 +1,5 @@
+Stückliste Cube Grob
+
+Arduino Nano
+Stiftleiste 2x4
+3.3V Spannungsregler TO-220 
