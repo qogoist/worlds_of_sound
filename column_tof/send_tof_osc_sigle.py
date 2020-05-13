@@ -1,3 +1,10 @@
+#SETTINGS
+SERVER_IP = "10.17.42.10"
+SERVER_PORT = 5005
+UPDATE_TIME_MICROS = 66000
+INTER_MEASUREMENT_PERIOD_MILLIS = 70
+
+
 import time
 import sys
 import signal
@@ -21,6 +28,9 @@ Press Ctrl+C to exit.
 tof = VL53L1X.VL53L1X(i2c_bus=1, i2c_address=0x29)
 tof.open()
 
+# Lower timing budgets allow for faster updates, but sacrifice accuracy
+tof.set_timing(UPDATE_TIME_MICROS, INTER_MEASUREMENT_PERIOD_MILLIS)
+
 tof.start_ranging(1)  # Start ranging
                       # 0 = Unchanged
                       # 1 = Short Range
@@ -31,7 +41,7 @@ running = True
 
 # Setup OSC Client
 # First Argument is the server ip-adress and second one is the UDP port on wich the server listens
-client = udp_client.SimpleUDPClient("192.168.17.10", 5005)
+client = udp_client.SimpleUDPClient(SERVER_IP, SERVER_PORT)
 
 def exit_handler(signal, frame):
     global running
@@ -47,6 +57,6 @@ signal.signal(signal.SIGINT, exit_handler)
 # Main loop
 while running:
     distance_in_mm = tof.get_distance()
-    client.send_message("/column1", distance_in_mm)
+    client.send_message("/col/1", distance_in_mm)
     print("OSC message sent, distance was {}mm".format(distance_in_mm))
     time.sleep(0.1)
