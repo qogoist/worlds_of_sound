@@ -31,8 +31,7 @@ WiFiUDP Udp;
 void setup()
 {
     Serial.begin(9600);
-    while (!Serial)
-        ;
+    // while (!Serial);
 
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
 
@@ -77,8 +76,8 @@ void setup()
             ;
     }
 
-    // ip.fromString(IP);
-    // WiFi.config(ip);
+    ip.fromString(IP);
+    WiFi.config(ip);
 
     // attempt to connect to Wifi network:
     while (status != WL_CONNECTED)
