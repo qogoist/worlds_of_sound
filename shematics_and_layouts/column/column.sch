@@ -260,10 +260,6 @@ by exp-project-lbr.ulp</description>
 <pad name="39" x="56.63" y="25.23" drill="1" diameter="1.778"/>
 <pad name="40" x="56.63" y="27.77" drill="1" diameter="1.778"/>
 <text x="8.0525" y="22.3725" size="1.016" layer="21" font="vector" ratio="10">1</text>
-<hole x="3.5" y="3.5" drill="2.75"/>
-<hole x="3.5" y="26.5" drill="2.75"/>
-<hole x="61.5" y="3.5" drill="2.75"/>
-<hole x="61.5" y="26.5" drill="2.75"/>
 <wire x1="36.9" y1="0" x2="37.75" y2="0" width="0.254" layer="52"/>
 <wire x1="37.75" y1="0" x2="45.25" y2="0" width="0.254" layer="52"/>
 <wire x1="37.75" y1="0" x2="37.75" y2="5.75" width="0.127" layer="52"/>
