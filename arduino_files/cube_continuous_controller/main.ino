@@ -9,7 +9,15 @@
 
 #define NUM_LEDS 54
 #define LED_PIN 7
-CRGB leds[NUM_LEDS];
+#define BRIGHTNESS 75
+CRGB rawleds[NUM_LEDS];
+CRGBSet leds(rawleds, NUM_LEDS);
+CRGBSet side1(leds(0, 8));
+CRGBSet side2(leds(9, 17));
+CRGBSet side3(leds(18, 26));
+CRGBSet side4(leds(27, 35));
+CRGBSet side5(leds(36, 44));
+CRGBSet side6(leds(45, 53));
 
 float ax, ay, az;
 int s1, s2, s3, s4, s5, s6;
@@ -34,16 +42,14 @@ void setup()
     // while (!Serial);
 
     FastLED.addLeds<WS2812, LED_PIN, GRB>(leds, NUM_LEDS);
+    FastLED.setBrightness(BRIGHTNESS);
 
-    for (int dot = 0; dot < NUM_LEDS; dot++)
-    {
-        leds[dot] = CRGB::HotPink;
-    }
+    fill_solid(leds, NUM_LEDS, CRGB::HotPink);
     FastLED.show();
-    delay(1000);
+    FastLED.delay(1000);
 
     turnAllOff();
-    delay(1000);
+    FastLED.delay(1000);
 
     // check for IMU module:
     if (!IMU.begin())
@@ -72,8 +78,7 @@ void setup()
         FastLED.show();
 
         // don't continue
-        while (true)
-            ;
+        while (true);
     }
 
     ip.fromString(IP);
@@ -91,26 +96,26 @@ void setup()
         {
             leds[dot] = CRGB::Yellow;
             FastLED.show();
-            delay(200);
+            FastLED.delay(200);
+
+            leds[dot] = CRGB::Black;
+            FastLED.show();
         }
-        delay(1000);
+        FastLED.delay(1000);
         turnAllOff();
-        delay(1000);
+        FastLED.delay(1000);
     }
     Serial.println("Connected to wifi");
     printWifiStatus();
 
-    for (int dot = 0; dot < NUM_LEDS; dot++)
-    {
-        leds[dot] = CRGB::Green;
-    }
+    fill_solid(leds, NUM_LEDS, CRGB::Green);
     FastLED.show();
 
     Serial.println("\nStarting connection to server...");
     Serial.println(Udp.begin(localPort));
     targetIp.fromString(TARGET_IP);
 
-    delay(2000);
+    FastLED.delay(2000);
     turnAllOff();
 }
 
@@ -218,10 +223,7 @@ void printWifiStatus()
 
 void turnAllOff()
 {
-    for (int dot = 0; dot < NUM_LEDS; dot++)
-    {
-        leds[dot] = CRGB::Black;
-    }
+    fill_solid(leds, NUM_LEDS, CHSV(0, 0, 0));
     FastLED.show();
 }
 
