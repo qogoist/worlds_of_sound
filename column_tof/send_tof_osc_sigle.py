@@ -1,6 +1,6 @@
 #SETTINGS
-SERVER_IP = "10.17.42.10"
-SERVER_PORT = 5005
+SERVER_IP = "10.13.37.5"
+SERVER_PORT = 6001
 UPDATE_TIME_MICROS = 66000
 INTER_MEASUREMENT_PERIOD_MILLIS = 70
 
@@ -57,6 +57,6 @@ signal.signal(signal.SIGINT, exit_handler)
 # Main loop
 while running:
     distance_in_mm = tof.get_distance()
-    client.send_message("/col/1", distance_in_mm)
+    client.send_message("/column1/height", distance_in_mm)
     print("OSC message sent, distance was {}mm".format(distance_in_mm))
     time.sleep(0.1)
