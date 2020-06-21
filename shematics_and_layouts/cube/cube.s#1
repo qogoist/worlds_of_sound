@@ -591,11 +591,10 @@ drill 1.2 mm</description>
 <part name="OUT-" library="solpad" deviceset="MCS08" device=""/>
 <part name="-" library="solpad" deviceset="MCS08" device=""/>
 <part name="+" library="solpad" deviceset="MCS08" device=""/>
-<part name="BH+" library="solpad" deviceset="MCS08" device=""/>
-<part name="BH-" library="solpad" deviceset="MCS08" device=""/>
 <part name="X1" library="con-lstb" deviceset="MA03-1" device="" value="LEDs"/>
 <part name="P+4" library="supply1" deviceset="VCC" device="" value="VCC +5V"/>
 <part name="GND5" library="supply1" deviceset="GND" device=""/>
+<part name="X2" library="con-lstb" deviceset="MA03-1" device="" value="BAT"/>
 </parts>
 <sheets>
 <sheet>
@@ -612,7 +611,7 @@ drill 1.2 mm</description>
 <wire x1="-55.88" y1="142.24" x2="-73.66" y2="142.24" width="0.1524" layer="94" style="dashdot"/>
 <wire x1="-73.66" y1="142.24" x2="-73.66" y2="157.48" width="0.1524" layer="94" style="dashdot"/>
 <wire x1="-73.66" y1="157.48" x2="-55.88" y2="157.48" width="0.1524" layer="94" style="dashdot"/>
-<text x="-27.94" y="78.74" size="1.778" layer="95">A1</text>
+<text x="-27.686" y="78.994" size="1.778" layer="95">A1</text>
 </plain>
 <instances>
 <instance part="A1" gate="G$1" x="-15.24" y="55.88" smashed="yes"/>
@@ -628,10 +627,18 @@ drill 1.2 mm</description>
 <instance part="VIN-" gate="G$1" x="-33.02" y="114.3" smashed="yes" rot="R270">
 <attribute name="NAME" x="-29.21" y="114.681" size="1.778" layer="95"/>
 </instance>
-<instance part="GND2" gate="1" x="2.54" y="93.98"/>
-<instance part="P+1" gate="VCC" x="2.54" y="137.16"/>
-<instance part="P+2" gate="VCC" x="-60.96" y="48.26"/>
-<instance part="GND3" gate="1" x="-55.88" y="10.16"/>
+<instance part="GND2" gate="1" x="2.54" y="93.98" smashed="yes">
+<attribute name="VALUE" x="5.08" y="96.52" size="1.778" layer="96"/>
+</instance>
+<instance part="P+1" gate="VCC" x="2.54" y="137.16" smashed="yes">
+<attribute name="VALUE" x="15.24" y="139.7" size="1.778" layer="96" rot="R180"/>
+</instance>
+<instance part="P+2" gate="VCC" x="-60.96" y="48.26" smashed="yes">
+<attribute name="VALUE" x="-49.276" y="50.8" size="1.778" layer="96" rot="R180"/>
+</instance>
+<instance part="GND3" gate="1" x="-55.88" y="10.16" smashed="yes">
+<attribute name="VALUE" x="-53.34" y="12.7" size="1.778" layer="96"/>
+</instance>
 <instance part="OUT+" gate="G$1" x="-60.96" y="119.38" smashed="yes" rot="R90">
 <attribute name="NAME" x="-64.77" y="121.539" size="1.778" layer="95" rot="R180"/>
 </instance>
@@ -650,15 +657,20 @@ drill 1.2 mm</description>
 <instance part="+" gate="G$1" x="-86.36" y="127" smashed="yes" rot="R270">
 <attribute name="NAME" x="-82.55" y="127.381" size="1.778" layer="95"/>
 </instance>
-<instance part="BH+" gate="G$1" x="-60.96" y="152.4" smashed="yes" rot="R90">
-<attribute name="NAME" x="-64.77" y="154.559" size="1.778" layer="95" rot="R180"/>
+<instance part="X1" gate="G$1" x="38.1" y="66.04" smashed="yes" rot="R180">
+<attribute name="VALUE" x="46.99" y="71.12" size="1.778" layer="96" rot="R180"/>
+<attribute name="NAME" x="44.196" y="73.66" size="1.778" layer="95" rot="R180"/>
 </instance>
-<instance part="BH-" gate="G$1" x="-60.96" y="147.32" smashed="yes" rot="R90">
-<attribute name="NAME" x="-64.77" y="149.479" size="1.778" layer="95" rot="R180"/>
+<instance part="P+4" gate="VCC" x="27.94" y="76.2" smashed="yes">
+<attribute name="VALUE" x="40.132" y="78.74" size="1.778" layer="96" rot="R180"/>
 </instance>
-<instance part="X1" gate="G$1" x="38.1" y="66.04" rot="R180"/>
-<instance part="P+4" gate="VCC" x="27.94" y="76.2"/>
-<instance part="GND5" gate="1" x="27.94" y="55.88"/>
+<instance part="GND5" gate="1" x="27.94" y="55.88" smashed="yes">
+<attribute name="VALUE" x="29.972" y="57.658" size="1.778" layer="96"/>
+</instance>
+<instance part="X2" gate="G$1" x="-66.04" y="149.86" smashed="yes">
+<attribute name="VALUE" x="-72.39" y="149.86" size="1.778" layer="96"/>
+<attribute name="NAME" x="-72.39" y="153.162" size="1.778" layer="95"/>
+</instance>
 </instances>
 <busses>
 </busses>
@@ -725,11 +737,11 @@ drill 1.2 mm</description>
 </net>
 <net name="N$7" class="0">
 <segment>
-<pinref part="BH-" gate="G$1" pin="MP"/>
-<wire x1="-58.42" y1="147.32" x2="-50.8" y2="147.32" width="0.1524" layer="91"/>
 <wire x1="-50.8" y1="147.32" x2="-50.8" y2="127" width="0.1524" layer="91"/>
 <pinref part="B-" gate="G$1" pin="MP"/>
 <wire x1="-50.8" y1="127" x2="-58.42" y2="127" width="0.1524" layer="91"/>
+<pinref part="X2" gate="G$1" pin="1"/>
+<wire x1="-50.8" y1="147.32" x2="-58.42" y2="147.32" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$9" class="0">
@@ -737,8 +749,8 @@ drill 1.2 mm</description>
 <pinref part="B+" gate="G$1" pin="MP"/>
 <wire x1="-58.42" y1="132.08" x2="-45.72" y2="132.08" width="0.1524" layer="91"/>
 <wire x1="-45.72" y1="132.08" x2="-45.72" y2="152.4" width="0.1524" layer="91"/>
-<pinref part="BH+" gate="G$1" pin="MP"/>
-<wire x1="-45.72" y1="152.4" x2="-58.42" y2="152.4" width="0.1524" layer="91"/>
+<pinref part="X2" gate="G$1" pin="3"/>
+<wire x1="-58.42" y1="152.4" x2="-45.72" y2="152.4" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$12" class="0">
