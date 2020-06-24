@@ -8,8 +8,8 @@
 #include <FastLED.h>
 
 #define NUM_LEDS 54
-#define LED_PIN 7
-#define BRIGHTNESS 75
+#define LED_PIN 10
+#define BRIGHTNESS 50
 CRGB rawleds[NUM_LEDS];
 CRGBSet leds(rawleds, NUM_LEDS);
 CRGBSet side1(leds(0, 8));
@@ -31,8 +31,7 @@ char pass[] = SECRET_PASS;
 IPAddress targetIp;
 IPAddress ip;
 uint16_t targetPort = TARGET_PORT;
-
-unsigned int localPort = 2390;
+unsigned int localPort = 5000;
 
 WiFiUDP Udp;
 
@@ -163,13 +162,13 @@ void loop()
 
     //Creating the OSC Bundle
     OSCBundle bndlOut;
-    bndlOut.add("/cube1/side1").add((float)s1);
-    bndlOut.add("/cube1/side2").add((float)s2);
-    bndlOut.add("/cube1/side3").add((float)s3);
-    bndlOut.add("/cube1/side4").add((float)s4);
-    bndlOut.add("/cube1/side5").add((float)s5);
-    bndlOut.add("/cube1/side6").add((float)s6);
-    bndlOut.add("/cube1/currentSide").add(currentSide);
+    bndlOut.add(SIDE1).add((float)s1);
+    bndlOut.add(SIDE2).add((float)s2);
+    bndlOut.add(SIDE3).add((float)s3);
+    bndlOut.add(SIDE4).add((float)s4);
+    bndlOut.add(SIDE5).add((float)s5);
+    bndlOut.add(SIDE6).add((float)s6);
+    bndlOut.add(SIDECURRENT).add(currentSide);
 
     //Send the OSC package via UDP to the defined IP and Port
     Udp.beginPacket(targetIp, targetPort);
@@ -240,10 +239,7 @@ void s1_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 0; dot < 9; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side1, 9, CHSV(h, s, v));
     FastLED.show();
 }
 
@@ -253,10 +249,7 @@ void s2_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 9; dot < 18; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side2, 9, CHSV(h, s, v));
     FastLED.show();
 }
 
@@ -266,10 +259,7 @@ void s3_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 18; dot < 27; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side3, 9, CHSV(h, s, v));
     FastLED.show();
 }
 
@@ -279,10 +269,7 @@ void s4_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 27; dot < 36; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side4, 9, CHSV(h, s, v));
     FastLED.show();
 }
 
@@ -292,10 +279,7 @@ void s5_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 36; dot < 45; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side5, 9, CHSV(h, s, v));
     FastLED.show();
 }
 
@@ -305,9 +289,6 @@ void s6_dispatch(OSCMessage &msg)
     int s = msg.getInt(1);
     int v = msg.getInt(2);
 
-    for (int dot = 45; dot < 54; dot++)
-    {
-        leds[dot].setHSV(h, s, v);
-    }
+    fill_solid(side6, 9, CHSV(h, s, v));
     FastLED.show();
 }
