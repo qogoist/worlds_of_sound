@@ -1,7 +1,6 @@
 #include <FastLED.h>
-#include <SPI.h>
 
-#define NUM_LEDS 54
+#define NUM_LEDS 18
 #define LED_PIN 7
 #define BRIGHTNESS 50
 
@@ -19,5 +18,7 @@ void setup()
 
 void loop()
 {
+    Serial.println("Looping");
     fill_solid(leds, NUM_LEDS, CRGB::Green);
+    FastLED.show();
 }
