@@ -1,5 +1,5 @@
 #SETTINGS
-SERVER_IP = "10.13.37.5"
+SERVER_IP = "255.255.255.255"
 SERVER_PORT = 6001
 UPDATE_TIME_MICROS = 66000
 INTER_MEASUREMENT_PERIOD_MILLIS = 70
@@ -41,7 +41,7 @@ running = True
 
 # Setup OSC Client
 # First Argument is the server ip-adress and second one is the UDP port on wich the server listens
-client = udp_client.SimpleUDPClient(SERVER_IP, SERVER_PORT)
+client = udp_client.SimpleUDPClient(SERVER_IP, SERVER_PORT, True)
 
 def exit_handler(signal, frame):
     global running
