@@ -1,3 +1,4 @@
+#!/usr/bin/env python3
 #SETTINGS
 SERVER_IP = "255.255.255.255"
 SERVER_PORT = 6001
@@ -59,4 +60,3 @@ while running:
     distance_in_mm = tof.get_distance()
     client.send_message("/column1/height", distance_in_mm)
     print("OSC message sent, distance was {}mm".format(distance_in_mm))
-    time.sleep(0.1)
