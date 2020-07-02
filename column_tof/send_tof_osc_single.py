@@ -9,6 +9,8 @@ INTER_MEASUREMENT_PERIOD_MILLIS = 70
 import time
 import sys
 import signal
+import board
+import neopixel
 
 import VL53L1X
 
@@ -53,6 +55,8 @@ def exit_handler(signal, frame):
 # Attach a signal handler to catch SIGINT (Ctrl+C) and exit gracefully
 signal.signal(signal.SIGINT, exit_handler)
 
+# Setup Neopixel LED Strip
+leds = neopixel.NeoPixel(board.D18, 60)
 
 
 # Main loop

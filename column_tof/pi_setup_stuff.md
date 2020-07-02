@@ -13,6 +13,8 @@
 ``sudo pip3 install vl53l1x``
 * [OCD Module](https://github.com/attwad/python-osc)
 ``sudo pip3 install python-osc``
+* [LED Module](https://github.com/adafruit/Adafruit_CircuitPython_NeoPixel)
+``sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel``
 
 ## Copy and Modify files
 * For now copy `send_tof_osc.py` to a convinient location and start it using the command `python3 <path to file>/send_tof_osc_single.py`
