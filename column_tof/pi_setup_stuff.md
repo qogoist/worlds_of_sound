@@ -17,4 +17,4 @@
 ``sudo pip3 install rpi_ws281x adafruit-circuitpython-neopixel``
 
 ## Copy and Modify files
-* For now copy `send_tof_osc.py` to a convinient location and start it using the command `python3 <path to file>/send_tof_osc_single.py`
+* For now copy `send_tof_osc_single.py` to a convinient location and start it using the command `python3 <path to file>/send_tof_osc_single.py`
