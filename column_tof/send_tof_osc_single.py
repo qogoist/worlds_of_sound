@@ -1,9 +1,11 @@
 #!/usr/bin/env python3
 #SETTINGS
-SERVER_IP = "255.255.255.255"
+SERVER_IP = "255.255.255.255" # PC with Max and Abelton or Broadcast
+PI_IP = "10.13.37.12" #Address of the PI
 SERVER_PORT = 6003
-CUTOF_HEIGHT = 1500
-OSC_ADDRESS_RECIVE = "/column3/leds"
+CUTOFF_HEIGHT = 1500
+OSC_ADDRESS_RECIVE_LEDS = "/column3/leds"
+OSC_ADDRESS_RECIVE_CUTOFF = "/column3/cutoff"
 OSC_ADDRESS_SEND = "/column3/height"
 UPDATE_TIME_MICROS = 66000
 INTER_MEASUREMENT_PERIOD_MILLIS = 70
@@ -15,6 +17,7 @@ import signal
 import board
 import neopixel
 import colorsys
+import asyncio
 
 import VL53L1X
 
@@ -51,23 +54,34 @@ tof.start_ranging(3)  # Start ranging
                       # 2 = Medium Range
                       # 3 = Long Range
 
-running = True
+#convert HSV to RGB and Scale
+def hsv2rgb(h,s,v):
+    return tuple(round(i * 255) for i in colorsys.hsv_to_rgb(h,s,v))
 
+# Function to call when OSC changes cutoff height
+def set_cutoff(osc_address, args):
+    CUTOFF_HEIGHT = args
+    print("Cutoff height set to {}mm".format(args))
 # Function to call when a osc message arrives
-def manipulate_leds(osc_address, args):
-    rgb_values = colorsys.hsv_to_rgb(args[0], args[1], args[2]) #colorsys expects percent in 0 to 1 as float
+def manipulate_leds(osc_address, h, s, v):
+    rgb_values = hsv2rgb(h, s, v) #colorsys expects percent in 0 to 1 as float
     leds.fill(rgb_values)
     leds.show()
+    print("LEDs Manipulated")
+    print("Hue {}".format(h))
+    print("Saturation {}".format(s))
+    print("Value {}".format(v))
 
+# Bind osc adress to function
+dispatcher = dispatcher.Dispatcher()
+dispatcher.map(OSC_ADDRESS_RECIVE_LEDS, manipulate_leds)
+dispatcher.map(OSC_ADDRESS_RECIVE_CUTOFF, set_cutoff)
 
 # Setup OSC Client
 # First Argument is the server ip-address and second one is the UDP port on wich the server listens
 client = udp_client.SimpleUDPClient(SERVER_IP, SERVER_PORT, True)
 
-# Setup and Start OSC Server
-dispatcher = dispatcher.Dispatcher()
-dispatcher.map(OSC_ADDRESS_RECIVE, manipulate_leds)
-server = osc_server.BlockingOSCUDPServer((SERVER_IP, SERVER_PORT), dispatcher)
+running = True
 
 def exit_handler(signal, frame):
     leds.fill((0,0,0))
@@ -80,14 +94,25 @@ def exit_handler(signal, frame):
 # Attach a signal handler to catch SIGINT (Ctrl+C) and exit gracefully
 signal.signal(signal.SIGINT, exit_handler)
 
-
-
-
 # Main loop
-while running:
-    distance_in_mm = tof.get_distance()
-    if distance_in_mm >= CUTOF_HEIGHT:
-        distance_in_mm = -1
-    client.send_message(OSC_ADDRESS_SEND, distance_in_mm)
-    print("OSC message sent, distance was {}mm".format(distance_in_mm))
-    server.handle_request()
+async def loop():
+    while running:
+        distance_in_mm = tof.get_distance()
+        if distance_in_mm >= CUTOFF_HEIGHT:
+            distance_in_mm = -1
+        client.send_message(OSC_ADDRESS_SEND, distance_in_mm)
+        print("OSC message sent, distance was {}mm".format(distance_in_mm))
+        await asyncio.sleep(0)
+
+
+async def init_main():
+    # Setup and Start OSC Server
+    server = osc_server.AsyncIOOSCUDPServer((PI_IP, SERVER_PORT), dispatcher, asyncio.get_event_loop())
+    transport, protocol = await server.create_serve_endpoint()
+
+    await loop()  # Enter main loop of program
+
+    transport.close()  # Clean up serve endpoint
+
+
+asyncio.run(init_main())
