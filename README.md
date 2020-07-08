@@ -1,9 +1,8 @@
 # Worlds of Sound
 
+* [Raspberry Pi/Column](/column_tof/pi_setup_stuff.md)
+
 ## Dev Tools & Dependencies
-### External Tools
-* [HairlessMIDI](https://projectgus.github.io/hairless-midiserial/) Communication between Arduino and virtual MIDI port.
-* [LoopMIDI](https://www.tobias-erichsen.de/software/loopmidi.html) To create a virtual MIDI port.
 
 ### Libraries
 * [FastLED](https://github.com/FastLED/FastLED) for LED stripes.
