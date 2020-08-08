@@ -1,4 +1,4 @@
-# Raspberry Pi TOF and OCD Setup Stuff
+# Raspberry Pi TOF and OSC Setup
 
 ## Usage
 * Simply connecting the raspberry pi to a power source will start it, connect to wifi, and start the program.
