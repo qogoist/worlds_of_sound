@@ -1,2 +1,4 @@
 //VS Code
 .vscode
+cube_continuous_controller/main.ino
+cube_continuous_controller/secrets.h
