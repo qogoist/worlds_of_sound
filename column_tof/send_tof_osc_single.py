@@ -75,13 +75,13 @@ def set_cutoff(osc_address, args):
     cutoff_height = args
     print("Cutoff height set to {}mm".format(args))
 
-# Function to call when OSC changes cutoff height
+# Function to call when OSC changes maximum LED brightness
 def set_max_brightness(osc_address, args):
     global max_brightness
     max_brightness = args
     print("Max Brightness set to {}".format(args))
 
-# Function to call when OSC changes cutoff height
+# Function to call when OSC changes minimum LED brightness
 def set_min_brightness(osc_address, args):
     global min_brightness
     min_brightness = args
